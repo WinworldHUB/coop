@@ -48,7 +48,7 @@ export default function ReactBigCalendar() {
         defaultDate={new Date()}
         defaultView="month"
         events={eventdata}
-        style={{ height: "100vh" }}
+        style={{ height: "80vh" }}
         onSelectEvent={(event) => alert(event.title)}
         // onSelectSlot={handleSelect}
       />

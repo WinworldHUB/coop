@@ -4,6 +4,7 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import ReactBigCalendar from "./ReactBigCalendar";
+import Sidebar from "./Sidebar";
 type CheckboxKeys = "Personal" | "Business" | "Family" | "Holiday" | "Etc";
 
 interface CheckedItems {
@@ -55,7 +56,13 @@ function CalendarComp() {
     <>
       <div className="row p-4 m-4 bg-white">
         <div className="col-4">
-          <button className="btn btn-primary w-100 text-white p-3">
+          <button
+            className="btn btn-primary w-100 text-white p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >
             <FontAwesomeIcon
               icon={faPlus}
               className="h4 px-2 text-white my-auto"
@@ -109,6 +116,22 @@ function CalendarComp() {
         <div className="col-8">
           <ReactBigCalendar />
         </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end p-4"
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel"
+      >
+        <div className="d-flex justify-content-between p-2">
+          <h3 className="my-auto color-red ">Add Event</h3>
+          <button
+            type="button"
+            className="btn-close text-reset p-2 my-auto"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <Sidebar />
       </div>
     </>
   );
