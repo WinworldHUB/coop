@@ -80,7 +80,7 @@ function Register() {
                 className="btn btn-primary mb-4"
                 style={{ width: "100%" }}
               >
-                <h5>Sign In</h5>
+                <h5>Register</h5>
               </button>
             </form>
             <p className="text-center">

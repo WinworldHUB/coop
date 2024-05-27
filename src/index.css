@@ -1,3 +1,9 @@
 .offcanvas-end {
   width: 30% !important;
 }
+h1,h2,h3,h4,p,label{
+  font-family: "Public Sans", sans-serif;
+  color: #5D596C !important;
+  font-weight: "500";
+}
+

@@ -80,7 +80,7 @@ function CalendarComp() {
 
           <div className="form-check mb-2 ms-3">
             <input
-              className="form-check-input select-all"
+              className="form-check-input select-all p-2"
               type="checkbox"
               id="selectAll"
               data-value="all"
@@ -101,7 +101,7 @@ function CalendarComp() {
                 } ${item === "Etc" ? "form-check-info" : ""}`}
               >
                 <input
-                  className="form-check-input input-filter"
+                  className="form-check-input input-filter p-2"
                   type="checkbox"
                   id={`select-${item}`}
                   data-value={item}
