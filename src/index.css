@@ -1,3 +1,4 @@
+
 .offcanvas-end {
   width: 30% !important;
 }
@@ -5,5 +6,83 @@ h1,h2,h3,h4,p,label{
   font-family: "Public Sans", sans-serif;
   color: #5D596C !important;
   font-weight: "500";
+}
+.react-calendar__tile--active{
+  background-color: rgb(115, 103, 240) !important;
+}
+/* input[type=checkbox]:checked {
+  background-color: #a77e2d !important;
+  color: #ffffff !important;
+}
+input[type='checkbox']:after {
+    box-shadow: none !important;
+} */
+
+.form-check-input.select-all{
+  box-shadow:   none !important;
+}
+.form-check-input.select-all:after{
+  box-shadow:   none !important;
+}
+.form-check-input.select-all:checked{
+  background-color: rgb(115, 103, 240) !important;
+  color: #ffffff !important;
+  box-shadow:   0 .125rem .25rem rgba(165,163,174,.3)!important;
+}
+.form-check-input.input-filter.danger{
+  box-shadow:   none !important;
+}
+.form-check-input.input-filter.danger:after{
+  box-shadow:  none !important;
+}
+.form-check-input.input-filter.danger:checked{
+  background-color: #ea5455 !important;
+  color: #ffffff !important;
+  box-shadow:   0 .125rem .25rem rgba(165,163,174,.3)!important;
+  border: #ea5455 !important;
+}
+.form-check-input.input-filter.warning{
+  box-shadow:   none !important;
+}
+.form-check-input.input-filter.warning:after{
+  box-shadow:  none !important;
+}
+.form-check-input.input-filter.warning:checked{
+  background-color: #ff9f43 !important;
+  color: #ffffff !important;
+  box-shadow:   0 .125rem .25rem rgba(165,163,174,.3)!important;
+  border: #ff9f43 !important;
+}
+.form-check-input.input-filter.info{
+  box-shadow:   none !important;
+}
+.form-check-input.input-filter.info:after{
+  box-shadow:  none !important;
+}
+.form-check-input.input-filter.info:checked{
+  background-color: #00cfe8 !important;
+  color: #ffffff !important;
+  box-shadow:   0 .125rem .25rem rgba(165,163,174,.3)!important;
+  border: #00cfe8 !important;
+}
+.form-check-input.input-filter.success{
+  box-shadow:   none !important;
+}
+.form-check-input.input-filter.success:after{
+  box-shadow:  none !important;
+}
+.form-check-input.input-filter.success:checked{
+  background-color: #28c76f !important;
+  color: #ffffff !important;
+  box-shadow:   0 .125rem .25rem rgba(165,163,174,.3)!important;
+  border: #28c76f !important;
+}
+.react-calendar__tile--now{
+  background-color: white !important; 
+  color: black !important;
+  border: 1px solid rgb(115, 103, 240) !important;
+}
+.rbc-event, .rbc-day-slot .rbc-background-event{
+background-color: rgb(115, 103, 240) !important;
 }
 

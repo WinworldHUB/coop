@@ -1,24 +1,72 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-// import auth from './auth-login-illustration-light.png'
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../lib/context/UserContext";
 
 function SignIn() {
+  const navigate = useNavigate();
   const Authlogo = "auth-login-illustration-light.png";
   const AuthlogoBg = "bg-shape-image-light.png";
+  const [userData, setUserData] = useState<UserModel>({
+    name: "",
+    email: "",
+    password: "",
+    phone:"",
+    address:"",
+    role:0,
+    societyId: 0,
+
+  });
+  const { user, updateUserState } = useContext(UserContext);
+
+  const [error, setError] = useState<{ message: string | null }>({
+    message: null,
+  });
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (!userData.email || !userData.password) {
+      setError({ message: "All fields are required" });
+      return;
+    } else if (user.password != userData.password || user.email != userData.email) {
+      setError({ message: "Email & Password is invalid" });
+      return;
+    } else {
+      navigate("/register");
+    }
+  };
+console.log("UserData",user)
   return (
     <>
       <div className="row m-0">
         <div className="col-7 m-0">
           <div
-            style={{ background: "#f8f7fa", height: "85vh" }}
+            style={{
+              background: "#f8f7fa",
+              height: "85vh",
+              position: "relative",
+            }}
             className="d-flex justify-content-center align-items-center m-5 rounded-5"
           >
-            <img src={Authlogo} alt="log" className="w-50" />
+            <img
+              src={Authlogo}
+              alt="log"
+              style={{
+                position: "absolute",
+                height: "70%",
+                overflow: "hidden",
+              }}
+            />
             <img
               src={AuthlogoBg}
               alt="log"
-              className="position-absolute w-100"
-              style={{ bottom: "0", left: "0", height: "35%" }}
+              className="w-100"
+              style={{
+                position: "absolute",
+                bottom: "0",
+                left: "0",
+                height: "35%",
+                overflow: "hidden",
+              }}
             />
           </div>
         </div>
@@ -28,13 +76,17 @@ function SignIn() {
             <p className="mb-4">
               Please sign-in to your account and start the adventure
             </p>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group mb-4">
                 <label className="pb-2">Email or Username</label>
                 <input
                   type="email"
                   className="form-control p-3"
                   placeholder="Enter email or username"
+                  onChange={(e) =>
+                    setUserData({ ...user, name: e.target.value })
+                  }
+                  required
                 />
               </div>
               <div className="form-group mb-4">
@@ -50,8 +102,11 @@ function SignIn() {
                 <input
                   type="password"
                   className="form-control p-3"
-                  id="exampleInputPassword1"
                   placeholder="*********"
+                  onChange={(e) =>
+                    setUserData({ ...user, password: e.target.value })
+                  }
+                  required
                 />
                 {/* <span className="input-group-text">
                   <i
@@ -71,10 +126,10 @@ function SignIn() {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary mb-4"
+                className="btn btn-primary mb-4 p-2"
                 style={{ width: "100%" }}
               >
-                <h5>Sign In</h5>
+                <h5 className="m-auto">Sign In</h5>
               </button>
             </form>
             <p className="text-center">
@@ -83,7 +138,7 @@ function SignIn() {
                 href="auth-register-cover.html"
                 className="text-decoration-none"
               >
-                <span>Create an account</span>
+                <Link to="/register">Create an account</Link>
               </a>
             </p>
             <div className="divider my-4">

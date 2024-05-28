@@ -62,6 +62,7 @@ function CalendarComp() {
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample"
             aria-controls="offcanvasExample"
+            style={{background: "#7367f0"}}
           >
             <FontAwesomeIcon
               icon={faPlus}
@@ -70,7 +71,7 @@ function CalendarComp() {
             <span className="h4 text-white my-auto">Add Event</span>
           </button>
           <hr />
-          <Calendar value={dateState} onChange={changeDate} className="w-100" />
+          <Calendar value={dateState} onChange={changeDate} className="w-100 border-0" />
           <hr />
           <div className="mb-3 ms-3">
             <small className="text-small text-muted text-uppercase align-middle">
@@ -94,14 +95,14 @@ function CalendarComp() {
             {(Object.keys(checkedItems) as CheckboxKeys[]).map((item) => (
               <div
                 key={item}
-                className={`form-check mb-2 ${
-                  item === "Personal" ? "form-check-danger" : ""
-                } ${item === "Family" ? "form-check-warning" : ""} ${
-                  item === "Holiday" ? "form-check-success" : ""
-                } ${item === "Etc" ? "form-check-info" : ""}`}
+                className={`form-check mb-2`}
               >
                 <input
-                  className="form-check-input input-filter p-2"
+                  className={`form-check-input input-filter p-2 ${
+                    item === "Personal" ? "danger" : ""
+                  } ${item === "Family" ? "warning" : ""} ${
+                    item === "Holiday" ? "success" : ""
+                  } ${item === "Etc" ? "info" : ""}`}
                   type="checkbox"
                   id={`select-${item}`}
                   data-value={item}
@@ -123,7 +124,7 @@ function CalendarComp() {
         aria-labelledby="offcanvasExampleLabel"
       >
         <div className="d-flex justify-content-between p-2">
-          <h3 className="my-auto color-red ">Add Event</h3>
+          <h3 className="my-auto">Add Event</h3>
           <button
             type="button"
             className="btn-close text-reset p-2 my-auto"

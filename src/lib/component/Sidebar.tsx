@@ -87,7 +87,11 @@ function Sidebar() {
           />
         </div>
         <div className="mt-4">
-          <button type="button" className="btn btn-primary px-4 py-2 mr-3">
+          <button
+            type="button"
+            style={{background: "#7367f0"}}
+            className="btn btn-primary px-4 py-2 mr-3"
+          >
             <h5 className="my-auto">Add</h5>
           </button>
           <button
