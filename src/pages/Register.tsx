@@ -9,13 +9,25 @@ function Register() {
   const Authlogo = "auth-register-illustration-light.png";
   const AuthlogoBg = "bg-shape-image-light.png";
   const { user, updateUserState } = useContext(UserContext);
+  const [roleOption, setRoleOption] = useState([
+    {
+      label: "",
+      value: "",
+    },
+  ]);
+  const [societyOption, setSocietyOption] = useState([
+    {
+      label: "",
+      value: "",
+    },
+  ]);
   const [userData, setUserData] = useState<UserModel>({
     name: "",
     email: "",
     password: "",
     phone: "",
     address: "",
-    role: 1,
+    role: 0,
     societyId: 0,
   });
   const [error, setError] = useState<{ message: string | null }>({
@@ -51,12 +63,21 @@ function Register() {
   async function roles() {
     const response = await fetch("http://localhost:3000/role");
     const roles = await response.json();
-    console.log(roles);
+    const newArray = roles.map((item: { id: any; name: any }) => ({
+      value: item.id,
+      label: item.name,
+    }));
+    setRoleOption(newArray);
+    // console.log("Roles",newArray);
   }
   async function society() {
     const response = await fetch("http://localhost:3000/society");
     const Society = await response.json();
-    console.log(Society);
+    const newArray = Society.map((item: { id: any; name: any }) => ({
+      value: item.id,
+      label: item.name,
+    }));
+    setSocietyOption(newArray);
   }
   // async function postJSON(data) {
   //   try {
@@ -67,14 +88,14 @@ function Register() {
   //       },
   //       body: JSON.stringify(data),
   //     });
-  
+
   //     const result = await response.json();
   //     console.log("Success:", result);
   //   } catch (error) {
   //     console.error("Error:", error);
   //   }
   // }
-  
+
   // const data = { username: "example" };
   // postJSON(data);
   console.log("object", error);
@@ -116,6 +137,7 @@ function Register() {
                   type="text"
                   className="form-control p-3"
                   placeholder="Enter username"
+                  required
                   onChange={(e) =>
                     setUserData({ ...userData, name: e.target.value })
                   }
@@ -127,6 +149,7 @@ function Register() {
                   type="email"
                   className="form-control p-3"
                   placeholder="Enter email"
+                  required
                   onChange={(e) =>
                     setUserData({ ...userData, email: e.target.value })
                   }
@@ -151,6 +174,7 @@ function Register() {
                   className="form-control p-3"
                   id="exampleInputPassword1"
                   placeholder="Phone"
+                  required
                   onChange={(e) =>
                     setUserData({ ...userData, phone: e.target.value })
                   }
@@ -163,10 +187,50 @@ function Register() {
                   className="form-control p-3"
                   id="exampleInputPassword1"
                   placeholder="Address"
+                  required
                   onChange={(e) =>
                     setUserData({ ...userData, address: e.target.value })
                   }
                 />
+              </div>
+              <div className="form-group mb-4">
+                <label>Role</label>
+                <select
+                  className="form-select p-2 my-2"
+                  aria-label="Default select example"
+                  required
+                  onChange={(e) =>
+                    setUserData({ ...userData, role: parseInt(e.target.value) })
+                  }
+                >
+                  <option selected disabled value="">
+                    Select
+                  </option>
+                  {roleOption.map((item, idx) => {
+                    return <option value={item.value}>{item.label}</option>;
+                  })}
+                </select>
+              </div>{" "}
+              <div className="form-group mb-4">
+                <label>Society</label>
+                <select
+                  className="form-select p-2 my-2"
+                  aria-label="Default select example"
+                  required
+                  onChange={(e) =>
+                    setUserData({
+                      ...userData,
+                      societyId: parseInt(e.target.value),
+                    })
+                  }
+                >
+                  <option selected disabled value="">
+                    Select
+                  </option>
+                  {societyOption.map((item, idx) => {
+                    return <option value={item.value}>{item.label}</option>;
+                  })}
+                </select>
               </div>
               <div className="form-group form-check mb-4">
                 <input
