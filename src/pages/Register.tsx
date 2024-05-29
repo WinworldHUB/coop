@@ -1,16 +1,93 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../lib/context/UserContext";
 // import auth from './auth-login-illustration-light.png'
 
 function Register() {
+  const navigate = useNavigate();
   const Authlogo = "auth-register-illustration-light.png";
   const AuthlogoBg = "bg-shape-image-light.png";
+  const { user, updateUserState } = useContext(UserContext);
+  const [userData, setUserData] = useState<UserModel>({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+    role: 1,
+    societyId: 0,
+  });
+  const [error, setError] = useState<{ message: string | null }>({
+    message: null,
+  });
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    // if (!userData.name || !userData.email || !userData.password ) {
+    //   setError({ message: "All fields are required" });
+    //   return;
+    // }
+
+    // if (userData.password !== userData.confirmPassword) {
+    //   setError({ message: "Password and Confirm Password do not match" });
+    //   return;
+    // }
+    console.log("Data", userData);
+    updateUserState({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      phone: userData.phone,
+      address: userData.address,
+      role: 1,
+      societyId: 1,
+    });
+    // navigate("/");
+  };
+  useEffect(() => {
+    roles();
+    society();
+  }, []);
+  async function roles() {
+    const response = await fetch("http://localhost:3000/role");
+    const roles = await response.json();
+    console.log(roles);
+  }
+  async function society() {
+    const response = await fetch("http://localhost:3000/society");
+    const Society = await response.json();
+    console.log(Society);
+  }
+  // async function postJSON(data) {
+  //   try {
+  //     const response = await fetch("https://example.com/profile", {
+  //       method: "POST", // or 'PUT'
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  
+  //     const result = await response.json();
+  //     console.log("Success:", result);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // }
+  
+  // const data = { username: "example" };
+  // postJSON(data);
+  console.log("object", error);
   return (
     <>
       <div className="row m-0">
         <div className="col-7 m-0">
           <div
-            style={{ background: "#f8f7fa", height: "85vh" }}
+            style={{
+              background: "#f8f7fa",
+              height: "85vh",
+              position: "relative",
+            }}
             className="d-flex justify-content-center align-items-center m-5 rounded-5"
           >
             <img src={Authlogo} alt="log" className="w-50" />
@@ -18,7 +95,13 @@ function Register() {
               src={AuthlogoBg}
               alt="log"
               className="position-absolute w-100"
-              style={{ bottom: "0", left: "0", height: "35%" }}
+              style={{
+                position: "absolute",
+                bottom: "0",
+                left: "0",
+                height: "35%",
+                overflow: "hidden",
+              }}
             />
           </div>
         </div>
@@ -26,13 +109,16 @@ function Register() {
           <div className="m-5">
             <h3 className="mb-1">Adventure starts here 🚀</h3>
             <p className="mb-4">Make your app management easy and fun!</p>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group mb-4">
                 <label className="pb-2">Username</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control p-3"
                   placeholder="Enter username"
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
                 />
               </div>
               <div className="form-group mb-4">
@@ -41,46 +127,69 @@ function Register() {
                   type="email"
                   className="form-control p-3"
                   placeholder="Enter email"
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
                 />
               </div>
-              <div className="form-group mb-4">
+              {/* <div className="form-group mb-4">
                   <label className="form-label">Password</label>
                 <input
                   type="password"
                   className="form-control p-3"
                   id="exampleInputPassword1"
                   placeholder="********"
+                  onChange={(e) =>
+                    setUserData({ ...userData, password: e.target.value })
+                  }
                 />
-                {/* <span className="input-group-text">
-                  <i
-                    className="fa fa-eye"
-                    id="togglePassword"
-                    style={{ cursor: "pointer" }}
-                  ></i>
-                </span> */}
-                </div>
+                </div> */}
+              <div className="form-group mb-4">
+                <label className="form-label">Phone</label>
+                <input
+                  type="text"
+                  className="form-control p-3"
+                  id="exampleInputPassword1"
+                  placeholder="Phone"
+                  onChange={(e) =>
+                    setUserData({ ...userData, phone: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-group mb-4">
+                <label className="form-label">Address</label>
+                <input
+                  type="text"
+                  className="form-control p-3"
+                  id="exampleInputPassword1"
+                  placeholder="Address"
+                  onChange={(e) =>
+                    setUserData({ ...userData, address: e.target.value })
+                  }
+                />
+              </div>
               <div className="form-group form-check mb-4">
                 <input
                   type="checkbox"
                   className="form-check-input p-2 border-3"
                   id="exampleCheck1"
                 />
-                            <p>
-              <span className="mx-2">I agree to</span>
-              <a
-                href="auth-register-cover.html"
-                className="text-decoration-none"
-              >
-                <span>privacy policy & terms</span>
-              </a>
-            </p>
+                <p>
+                  <span className="mx-2">I agree to</span>
+                  <a
+                    href="auth-register-cover.html"
+                    className="text-decoration-none"
+                  >
+                    <span>privacy policy & terms</span>
+                  </a>
+                </p>
               </div>
               <button
                 type="submit"
-                className="btn btn-primary mb-4"
+                className="btn btn-primary mb-4 p-2"
                 style={{ width: "100%" }}
               >
-                <h5>Register</h5>
+                <h5 className="m-auto">Register</h5>
               </button>
             </form>
             <p className="text-center">
@@ -89,7 +198,7 @@ function Register() {
                 href="auth-register-cover.html"
                 className="text-decoration-none"
               >
-                <span>Sign in instead</span>
+                <Link to="/">Sign in instead</Link>
               </a>
             </p>
             <div className="divider my-4">
